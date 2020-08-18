@@ -7,13 +7,13 @@ config = {
   'user': 'admin',
   'password': 'password',
   'host': 'gfam.cyxmuqmooa8j.us-east-1.rds.amazonaws.com',
-  'database': 'gfam',
+  'database': '',
   'port': 3306
 }
 
-filename = "gfam_metadata.csv"
+filename = "metadata.csv"
 
-gfam_metadata_query = ('INSERT INTO gfam_metadata(gfam_id, name, description) VALUES (%s, %s, %s)')
+gfam_metadata_query = ('INSERT INTO metadata(id, name, description) VALUES (%s, %s, %s)')
 
 
 def setup_connection():
@@ -63,10 +63,10 @@ def dump_data_from_file():
     for line in lines:
         # if the file is a .csv, if it is tab separetd replace "," with "\t".
         line = tuple(line.strip().split(','))
-        print(gfam_metadata_query, line)
+        print(metadata_query, line)
 
         try:
-            execute(cnx, gfam_metadata_query, data=line)
+            execute(cnx, metadata_query, data=line)
         except Exception as err:
             print(err.__str__)
     
